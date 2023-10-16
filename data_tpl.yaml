@@ -1,0 +1,8 @@
+# 核心参数配置
+telebot:   # tele机器人bot推送
+  open: 0  # 0代表不开启，1代表开启。
+  BOT_TOKEN: ""  # 这是token的值
+  bot_chat_id: "-xx"  # 这是chatId 参考 https://core.telegram.org/bots/api#sendmessage
+user_data:
+  uid: "xxx" # 登录账号
+  pwd: "xxx" # 登录密码，加密后的。需要浏览器中自己抓取登录post请求里加密后的pwd
