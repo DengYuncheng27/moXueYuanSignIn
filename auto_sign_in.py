@@ -45,8 +45,6 @@ headers = {
     "Accept-Encoding": "gzip, deflate, br",
     "Accept-Language": "zh-CN,zh;q=0.9",
     "Content-Type": "application/x-www-form-urlencoded",
-    "Origin": "https://tuyoo.study.moxueyuan.com",
-    "Referer": "https://tuyoo.study.moxueyuan.com/",
     "Sec-Ch-Ua": '"Google Chrome";v="117", "Not;A=Brand";v="8", "Chromium";v="117"',
     "Sec-Ch-Ua-Mobile": "?0",
     "Sec-Ch-Ua-Platform": '"Windows"',

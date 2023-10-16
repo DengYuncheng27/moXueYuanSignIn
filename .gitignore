@@ -3,3 +3,4 @@ chromdriver
 test*
 token_cache.pkl
 *.log
+.idea
