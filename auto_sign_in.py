@@ -2,6 +2,7 @@ import random
 import re
 import pickle
 import os
+import time
 from urllib.parse import unquote
 import requests
 import logging
@@ -84,10 +85,10 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 #输出到控制台
 console_handler = logging.StreamHandler()
-console_handler.setLevel(logging.INFO)
+console_handler.setLevel(logging.DEBUG)
 # 创建一个文件处理器，指定输出到文件
 file_handler = logging.FileHandler('sign_in.log', encoding='utf-8')
-file_handler.setLevel(logging.INFO)
+file_handler.setLevel(logging.DEBUG)
 
 string_io_handler = logging.StreamHandler(log_stream)
 string_io_handler.setLevel(logging.INFO)
@@ -146,7 +147,7 @@ def do_sign_in_job():
     if os.path.exists(token_cache_file):
         with open(token_cache_file, 'rb') as file:
             token_value, uid_value = pickle.load(file)
-            logger.info("从缓存加载token和uid成功")
+            logger.debug("从缓存加载token和uid成功")
     else:
         token_value, uid_value = login_and_get_token(session)
         # 缓存token和uid
@@ -181,6 +182,7 @@ def schedule_job():
     logs = get_logs()
     if bot_open:
         bot.send_message(chat_id=chat_id, text=logs)
+        logger.info("bot has send message")
 
 
 def random_time_job():
@@ -195,15 +197,22 @@ def random_time_job():
 
 def check_job():
     sleep(2) # wait 机器人加载~
+    if(bot_open):
+        logger.info("机器人bot启动~ " )
     schedule_job()
     random_time_job()
 
 
+def scheduler_runner():
+    while True:
+        schedule.run_pending()
+        time.sleep(60) # 60s执行一次
 
 if __name__ == '__main__':
     # 启动线程
-    thread = threading.Thread(target=check_job)
+    thread = threading.Thread(target=scheduler_runner)
     thread.start()
+    check_job()
     if bot_open:
         bot.infinity_polling()
 
