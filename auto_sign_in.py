@@ -24,8 +24,9 @@ uid = os.environ.get('USER_NAME')
 pwd = os.environ.get('USER_PWD')
 bot_open = os.environ.get('BOT_OPEN')
 # bot config
+print("env is ", uid, pwd, bot_open)
 if bot_open:
-    BOT_TOKEN =  os.environ.get('BOT_TOKEN')
+    BOT_TOKEN = os.environ.get('BOT_TOKEN')
     bot = telebot.TeleBot(BOT_TOKEN)
     chat_id = os.environ.get('BOT_CHAT_ID')
 
@@ -75,7 +76,7 @@ signInPayload = {
 log_stream = StringIO()
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
-#输出到控制台
+# 输出到控制台
 console_handler = logging.StreamHandler()
 console_handler.setLevel(logging.DEBUG)
 # 创建一个文件处理器，指定输出到文件
@@ -182,13 +183,11 @@ def check_job():
         检查任务
     :return:
     """
-    sleep(2) # wait 机器人加载~
-    if(bot_open):
-        logger.info("telegram bot open " )
+    sleep(2)  # wait 机器人加载~
+    if (bot_open):
+        logger.info("telegram bot open ")
     schedule_job()
 
 
 if __name__ == '__main__':
     check_job()
-
-
