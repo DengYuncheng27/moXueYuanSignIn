@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 import os
 
 '''
-    魔学院自动签到脚本
+    魔学院自动签到脚本 dfsdfsdf
     TODO:
         1. 日志规范化
         2. README
