@@ -1,17 +1,13 @@
-import random
 import re
 import pickle
-import os
-import time
 from urllib.parse import unquote
 import requests
 import logging
 from io import StringIO
-import threading
 from time import sleep
-import schedule
 import telebot
-import yaml
+from dotenv import load_dotenv
+import os
 
 '''
     魔学院自动签到脚本
@@ -22,22 +18,18 @@ import yaml
         4. 推送时间可配置。  优先级低
 '''
 
+load_dotenv()  # 加载 .env 文件中的环境变量
 
-# 加载YAML
-with open("data.yaml", "r", encoding="utf-8") as file:
-    config = yaml.safe_load(file)
-
+uid = os.environ.get('USER_NAME')
+pwd = os.environ.get('USER_PWD')
+bot_open = os.environ.get('BOT_OPEN')
 # bot config
-bot_open = config["telebot"]["open"]
 if bot_open:
-    BOT_TOKEN = config["telebot"]["BOT_TOKEN"]
+    BOT_TOKEN =  os.environ.get('BOT_TOKEN')
     bot = telebot.TeleBot(BOT_TOKEN)
-    chat_id = config["telebot"]["bot_chat_id"]
-#user config
-uid= config["user_data"]["uid"]
-pwd = config["user_data"]["pwd"]
+    chat_id = os.environ.get('BOT_CHAT_ID')
 
-
+######### config  #########
 login_url = 'https://api.moxueyuan.com/appapi.php/index?r=apiSystem/login'
 signInUrl = 'https://api.moxueyuan.com/c45814c9a643ea71new3/appapi.php/index?r=apiSystem/sign'
 token_cache_file = "token_cache.pkl"
@@ -185,34 +177,18 @@ def schedule_job():
         logger.info("bot has send message")
 
 
-def random_time_job():
-    '''
-        9:30 到 9:59之间随机一个时间执行
-    :return:
-    '''
-    minutes = random.randint(0, 30)  # 从0到30中随机选择分钟
-    seconds = random.randint(0, 59)  # 随机选择秒数
-    schedule.every().day.at(f"09:{minutes:02d}:{seconds:02d}").do(schedule_job)
-
-
 def check_job():
+    """
+        检查任务
+    :return:
+    """
     sleep(2) # wait 机器人加载~
     if(bot_open):
-        logger.info("机器人bot启动~ " )
+        logger.info("telegram bot open " )
     schedule_job()
-    random_time_job()
 
-
-def scheduler_runner():
-    while True:
-        schedule.run_pending()
-        time.sleep(60) # 60s执行一次
 
 if __name__ == '__main__':
-    # 启动线程
-    thread = threading.Thread(target=scheduler_runner)
-    thread.start()
     check_job()
-    if bot_open:
-        bot.infinity_polling()
+
 
