@@ -24,6 +24,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     - name: Some step
+      run: echo "Setup env variables here"  # 这只是一个占位符
       env: # 设置环境变量
         USER_NAME: ${{ secrets.USER_NAME }}
         USER_PWD: ${{ secrets.USER_PWD }}
