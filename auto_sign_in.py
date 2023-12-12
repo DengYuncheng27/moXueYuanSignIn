@@ -22,7 +22,7 @@ load_dotenv()  # 加载 .env 文件中的环境变量
 
 uid = os.environ.get('USER_NAME')
 pwd = os.environ.get('USER_PWD')
-bot_open = os.environ.get('BOT_OPEN')
+bot_open = os.environ.get('BOT_OPEN', 0)
 # bot config
 print("env is ", uid, pwd, bot_open)
 if bot_open:
