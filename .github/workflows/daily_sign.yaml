@@ -23,6 +23,12 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-
+    - name: Some step
+      env: # 设置环境变量
+        USER_NAME: ${{ secrets.USER_NAME }}
+        USER_PWD: ${{ secrets.USER_PWD }}
+        BOT_OPEN: ${{ secrets.BOT_OPEN }}
+        BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+        BOT_CHAT_ID: ${{ secrets.BOT_CHAT_ID }}
     - name: Run sign in script
       run: python auto_sign_in.py # 执行您的 Python 脚本
