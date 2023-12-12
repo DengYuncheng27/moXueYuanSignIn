@@ -4,6 +4,7 @@ on:
   schedule:
     - cron: '0 9 * * *' # 每天 UTC 时间 00:00 执行
   push: # 每次 push 时执行
+  workflow_dispatch:
 
 jobs:
   sign_in_job:
