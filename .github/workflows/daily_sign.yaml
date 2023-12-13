@@ -1,4 +1,4 @@
-name: Daily Sign-in
+name: selenium_sign_in
 
 on:
   schedule:
@@ -16,8 +16,11 @@ jobs:
       BOT_CHAT_ID: ${{ secrets.BOT_CHAT_ID }}
     runs-on: ubuntu-latest # 运行环境
     steps:
+      - name: Set timezone
+        run: sudo timedatectl set-timezone Asia/Shanghai
+
       - name: Checkout Repository
-        uses: actions/checkout@v2 # 检出您的代码
+        uses: actions/checkout@v4 # 检出您的代码
 
       - name: Set up Python
         uses: actions/setup-python@v4
