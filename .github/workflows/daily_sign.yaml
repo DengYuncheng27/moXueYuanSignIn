@@ -21,6 +21,8 @@ jobs:
 
       - name: Checkout Repository
         uses: actions/checkout@v4 # 检出您的代码
+        with:
+          ref: selenium_impl
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -32,4 +34,4 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
       - name: Run sign in script
-        run: python auto_sign_in.py # 执行您的 Python 脚本
+        run: python src/daily_sign.py
