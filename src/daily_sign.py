@@ -1,4 +1,5 @@
 import datetime
+import platform
 from time import sleep
 
 import pytz
@@ -35,7 +36,18 @@ if bot_open:
 
 def main():
     print("开始加载 geckodriver driver ... ")
-    driver = webdriver.Firefox(service=Service(executable_path="../drivers/geckodriver.exe"))
+
+    # 检查操作系统
+    if platform.system() == 'Windows':
+        # Windows 系统
+        geckodriver_path = "../drivers/geckodriver.exe"
+    else:
+        # Linux 或 macOS 系统
+        geckodriver_path = "../drivers/geckodriver"  # 确保这个是 Linux/macOS 可执行版本的路径
+
+    # 初始化 webdriver
+    driver = webdriver.Firefox(service=Service(executable_path=geckodriver_path))
+
     driver.get("https://tuyoo.study.moxueyuan.com/new/login")
     try:
         user_input = WebDriverWait(driver, 10).until(
