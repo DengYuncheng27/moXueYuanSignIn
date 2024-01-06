@@ -3,3 +3,4 @@ schedule
 requests
 python-dotenv
 selenium==4.16.0
+pytz

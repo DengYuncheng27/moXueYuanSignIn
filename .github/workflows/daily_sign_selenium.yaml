@@ -2,7 +2,7 @@ name: selenium_sign_in
 
 on:
   schedule:
-    - cron: '0 9 * * *' # 每天 UTC 时间 00:00 执行
+    - cron: '0 1 * * *'
   push: # 每次 push 时执行
   workflow_dispatch:
 
