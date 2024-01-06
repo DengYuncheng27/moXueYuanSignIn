@@ -24,6 +24,9 @@ jobs:
         with:
           ref: selenium_impl
 
+      - name: Change permissions for geckodriver
+        run: chmod +x ${{ github.workspace }}/drivers/geckodriver
+
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
