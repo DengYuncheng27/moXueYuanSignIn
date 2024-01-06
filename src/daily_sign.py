@@ -34,6 +34,7 @@ if bot_open:
 
 
 def main():
+    print("开始加载 geckodriver driver ... ")
     driver = webdriver.Firefox(service=Service(executable_path="../drivers/geckodriver.exe"))
     driver.get("https://tuyoo.study.moxueyuan.com/new/login")
     try:
