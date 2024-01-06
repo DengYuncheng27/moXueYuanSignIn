@@ -16,6 +16,7 @@ import os
 """
 # TODO 
 1. 集成 geckodriver action
+2. 所有print 统一一下格式
 """
 
 # config
@@ -41,15 +42,15 @@ def main():
     if platform.system() == 'Windows':
         # Windows 系统
         geckodriver_path = os.path.join(script_dir, "../drivers/geckodriver.exe")
+        driver = webdriver.Firefox(service=Service(executable_path=geckodriver_path))
 
     else:
+        from selenium.webdriver import FirefoxOptions
+        opts = FirefoxOptions()
+        opts.add_argument("--headless")
         # Linux 或 macOS 系统
         geckodriver_path = os.path.join(script_dir, "../drivers/geckodriver")  # 确保这个是 Linux/macOS 可执行版本的路径
-    print("开始加载 geckodriver driver ... ", geckodriver_path)
-
-    # 初始化 webdriver
-    driver = webdriver.Firefox(service=Service(executable_path=geckodriver_path))
-
+        driver = webdriver.Firefox(options=opts, service=Service(executable_path=geckodriver_path))
     driver.get("https://tuyoo.study.moxueyuan.com/new/login")
     try:
         user_input = WebDriverWait(driver, 10).until(
@@ -64,6 +65,7 @@ def main():
         pwd_input.send_keys(pwd)
         button = driver.find_element(By.CLASS_NAME, "loginProBtn")
         button.click()
+        print("login success !")
         sign_button = WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.CLASS_NAME, "signInBtn"))
         )
