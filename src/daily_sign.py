@@ -15,7 +15,6 @@ import os
 
 """
 # TODO 
-    1. wait优化
 """
 
 # config
@@ -34,25 +33,18 @@ if bot_open:
     chat_id = os.environ.get('BOT_CHAT_ID')
 
 
-import os
-
-def list_files(directory):
-    for root, dirs, files in os.walk(directory):
-        for name in files:
-            print(os.path.join(root, name))
-
-
 def main():
+    # 获取脚本所在的绝对路径
+    script_dir = os.path.dirname(os.path.abspath(__file__))
     # 检查操作系统
     if platform.system() == 'Windows':
         # Windows 系统
-        geckodriver_path = "../drivers/geckodriver.exe"
+        geckodriver_path = os.path.join(script_dir, "../drivers/geckodriver.exe")
+
     else:
         # Linux 或 macOS 系统
-        geckodriver_path = "../drivers/geckodriver"  # 确保这个是 Linux/macOS 可执行版本的路径
-
+        geckodriver_path = os.path.join(script_dir, "../drivers/geckodriver")  # 确保这个是 Linux/macOS 可执行版本的路径
     print("开始加载 geckodriver driver ... ", geckodriver_path)
-    list_files('../drivers/')
 
     # 初始化 webdriver
     driver = webdriver.Firefox(service=Service(executable_path=geckodriver_path))
